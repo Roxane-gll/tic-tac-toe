@@ -1,10 +1,5 @@
 <?php
 
-
-/**
- * The grid we want to draw
- * @param $grid the grid to draw
- */
 function drawGrid($grid)
 {
     $strMap = "
@@ -19,10 +14,18 @@ function drawGrid($grid)
 ";
     foreach ($grid as $rowNumber => $row) {
         foreach ($row as $lineNumber => $cell) {
-            $strMap = str_replace($lineNumber + 1 . $rowNumber + 1, showCharacter($cell), $strMap);
+            $strMap = str_replace($lineNumber + 1 . $rowNumber + 1, showCharacterOrDefaultTilt($cell), $strMap);
         }
     }
     echo $strMap;
+}
+
+function showCharacterOrDefaultTilt($cell)
+{
+    if (function_exists("showCharacter")) {
+        return showCharacter($cell);
+    }
+    return "~";
 }
 
 function askQuestion(string $question): string
@@ -32,11 +35,6 @@ function askQuestion(string $question): string
 }
 
 
-/**
- * Check if the game is won.
- * @param $grid
- * @return bool true if t
- */
 function checkIfSomeoneWon($grid): bool
 {
     $col = [1, 1, 1];
