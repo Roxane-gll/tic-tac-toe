@@ -24,20 +24,25 @@ function showCharacter($cell): string
 
 function isEmpty($game,$res):bool
 {
-    if($game[$res[0]][$res[1]]==null){
-        return true;
-    }else{
-        return false;
-    }
+    return $game[$res[0]][$res[1]]==null;
 }
 
 function hasAnyEmptyCell($game):bool
 {
-    $hasEmpty=false
     foreach($game as $value){
-        if($value==null){
-            $hasEmpty=true
+        foreach($value as $cell){
+            if($cell==null){
+                return true;
+            }
         }
     }
-    return
+    return false;
+}
+
+function changePlayer($player){
+    if($player==1){
+        return 2;
+    }else{
+        return 1;
+    }
 }
